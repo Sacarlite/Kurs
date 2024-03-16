@@ -1,0 +1,152 @@
+﻿<Window x:Class="DesktopPart.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="1*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Border BorderBrush="#9ACD32" BorderThickness="1">
+                        <Menu HorizontalAlignment="Center">
+                            <MenuItem
+
+                                Header="Параметры" Background="White" FontSize="15" Foreground="#696969"
+                                HorizontalAlignment="Center">
+                                <MenuItem Header="Сохранить" Background="White" FontSize="15" Foreground="#696969">
+                                    <MenuItem Header="Результат" Background="White" FontSize="15" Foreground="#696969"
+                                              Command="{Binding SaveExportDataCommand}" />
+                                    <MenuItem Header="Начальные параметры" Background="White" FontSize="15"
+                                              Foreground="#696969" Command="{Binding SaveInputDataCommand}" />
+                                </MenuItem>
+                                <MenuItem Header="Загрузить" Background="White" FontSize="15" Foreground="#696969"
+                                          Command="{Binding LoadData}" />
+                            </MenuItem>
+                        </Menu>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Border BorderBrush="#9ACD32" BorderThickness="1">
+                        <Menu HorizontalAlignment="Center">
+                            <MenuItem
+                                Header="О программе" Background="White" FontSize="15" Foreground="#696969"
+                                HorizontalAlignment="Center" />
+                        </Menu>
+                    </Border>
+                </Grid>
+                <Grid Grid.Column="3">
+                    <Border BorderBrush="#9ACD32" BorderThickness="1">
+                        <Menu HorizontalAlignment="Center">
+                            <MenuItem
+                                Header="Настройки" Background="White" FontSize="15" Foreground="#696969"
+                                HorizontalAlignment="Center" />
+                        </Menu>
+                    </Border>
+                </Grid>
+
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="1*" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <Border BorderBrush="#9ACD32" BorderThickness="1">
+                            <wpf:CartesianChart Series="{Binding LevelSeries}"
+                                                XAxes="{Binding XExpenditure}"
+                                                YAxes="{Binding YLevel}" />
+                        </Border>
+                    </Grid>
+
+
+                    <Grid Grid.Column="1">
+                        <Border BorderBrush="#9ACD32" BorderThickness="1">
+                            <wpf:CartesianChart Series="{Binding ConcentrationSeries}"
+                                                XAxes="{Binding XExpenditure}"
+                                                YAxes="{Binding YConcentration}" />
+                        </Border>
+                    </Grid>
+                </Grid>
+
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Border BorderBrush="#9ACD32" BorderThickness="1">
+
+                            <DataGrid
+                                VerticalAlignment="Top"
+                                CanUserAddRows="True"
+                                ScrollViewer.CanContentScroll="True"
+                                ScrollViewer.VerticalScrollBarVisibility="Auto"
+                                ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                                AutoGenerateColumns="True"
+                                HeadersVisibility="All"
+                                Height="auto"
+                                ItemsSource="{Binding UserParameters}" />
+
+                        </Border>
+                    </Grid>
+
+
+                    <Grid Grid.Column="1">
+                        <Border BorderBrush="#9ACD32" BorderThickness="1">
+                            <Viewbox>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
+                                    <ComboBox Margin="15" materialDesign:HintAssist.Hint="Mетод"
+                                              ItemsSource="{Binding Methods}"
+                                              SelectedItem="{Binding SelectedMethod }" />
+                                    <Button Content="Сброс"
+                                            Style="{StaticResource MaterialDesignPaperButton}"
+                                            materialDesign:ElevationAssist.Elevation="Dp4"
+                                            Command="{Binding Clear}"
+                                            Margin="15"
+                                            Foreground="#696969" />
+                                    <Button
+                                        Content="Выполнить"
+                                        Style="{StaticResource MaterialDesignPaperButton}"
+                                        materialDesign:ElevationAssist.Elevation="Dp4"
+                                        Command="{Binding DrawApproximation}"
+                                        Margin="15"
+                                        Foreground="#696969"
+                                        Cursor="Hand" />
+
+                                </StackPanel>
+                            </Viewbox>
+                        </Border>
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
